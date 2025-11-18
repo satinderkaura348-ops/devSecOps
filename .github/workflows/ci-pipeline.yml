@@ -1,0 +1,32 @@
+name: CI Pipeline
+
+on:
+  workflow_dispatch:
+
+env:
+  DOCKER_IMAGE: satinderkaura348/petapp:${{ github.sha }}
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+
+  snyk-deps:
+    uses: ./.github/workflows/snyk-deps.yml
+    needs: build
+    secrets: inherit
+
+  sonar:
+    uses: ./.github/workflows/sonar.yml
+    needs: snyk-deps
+    secrets: inherit
+
+  test:
+    uses: ./.github/workflows/test.yml
+    needs: sonar
+    secrets: inherit
+
+  imagepush:
+    uses: ./.github/workflows/imagepush.yml
+    needs: test
+    secrets: inherit
