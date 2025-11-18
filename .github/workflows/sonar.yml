@@ -6,7 +6,6 @@ on:
 jobs:
   sonar:
     runs-on: ubuntu-latest
-    needs: snyk-deps
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
