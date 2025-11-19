@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Run Unit Tests (MySQL only)
-        run: mvn test -Dspring.profiles.active=mysql -Dtest=!PostgresIntegrationTests
+        run: mvn test -Dspring.profiles.active=mysql -x org.springframework.samples.petclinic.PostgresIntegrationTests
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v3
