@@ -1,12 +1,7 @@
 name: Sonar Scan
 
 on:
-  push:
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - '**'
+  workflow_call:
 
 jobs:
   sonar:
@@ -14,26 +9,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # important to get all branches
-
-      - name: Set branch name
-        run: |
-          if [ -n "${GITHUB_HEAD_REF}" ]; then
-            BRANCH_NAME="${GITHUB_HEAD_REF}"
-          else
-            BRANCH_NAME="${GITHUB_REF_NAME#refs/heads/}"
-          fi
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-          echo "Scanning branch: $BRANCH_NAME"
 
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
+          # Set the branch name (default to main if not provided)
+          # BRANCH_NAME=${GITHUB_HEAD_REF:-main}
+          echo "Scanning branch: $BRANCH_NAME"
+
           mvn sonar:sonar \
             -Dsonar.projectKey=devSecOps \
             -Dsonar.organization=satinderkaura348-ops \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.branch.name=$BRANCH_NAME
+            -Dsonar.branch.name=main
+
