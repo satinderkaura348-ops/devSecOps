@@ -4,6 +4,10 @@ on:
   workflow_call:
 
 jobs:
+  trigger-test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Pipeline triggered successfully!"
   test:
     runs-on: ubuntu-latest
     steps:
