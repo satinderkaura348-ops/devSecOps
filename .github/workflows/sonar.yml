@@ -19,8 +19,9 @@ jobs:
           echo "Scanning branch: $BRANCH_NAME"
 
           mvn sonar:sonar \
-            -Dsonar.projectKey=satinderkaura348_devSecops_Pipeline \
-            -Dsonar.organization=satinderkaura348 \
+            -Dsonar.projectKey=devSecOps \
+            -Dsonar.organization=satinderkaura348-ops \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.branch.name=$BRANCH_NAME
+            -Dsonar.branch.name=${GITHUB_REF#refs/heads/}
+
