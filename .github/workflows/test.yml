@@ -7,13 +7,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    #needs: build  # Ensures test only runs after build succeeds
     steps:
-      - name: Run Unit Tests
-        run: mvn test
+      # Step 1: Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      # - name: Upload Test Results h
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: test-results
-      #     path: target/test-classes/TEST-*.xml
+      # Step 2: Run Maven tests
+      - name: Run Unit Tests
+        run: ./mvnw test
+
+      - name: Upload Test Results h
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: target/test-classes/TEST-*.xml
