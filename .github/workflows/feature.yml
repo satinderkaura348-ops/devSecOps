@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
   # push:
   #   branches:
-  #     - master 
-  #     - develop
+  #     - main 
+  #     - dev
       
 env:
         DOCKER_IMAGE: satinderkaura348/petapp:${{ github.sha }}
