@@ -15,7 +15,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           # Set the branch name (default to main if not provided)
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          BRANCH_NAME=${GITHUB_HEAD_REF:-main}
           echo "Scanning branch: $BRANCH_NAME"
 
           mvn sonar:sonar \
@@ -23,5 +23,5 @@ jobs:
             -Dsonar.organization=satinderkaura348-ops \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.branch.name=${GITHUB_REF#refs/heads/}
+            -Dsonar.branch.name=$BRANCH_NAME
 
