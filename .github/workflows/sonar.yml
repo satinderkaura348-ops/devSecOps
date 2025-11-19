@@ -1,0 +1,21 @@
+name: Sonar Scan
+
+on:
+  workflow_call:
+
+jobs:
+  sonar:
+    runs-on: java_build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # inject token as env variable
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.projectKey=satinderkaura348_devSecops_Pipeline \
+            -Dsonar.organization=ankit20000 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN
