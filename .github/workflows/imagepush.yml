@@ -11,20 +11,28 @@ jobs:
       DOCKER_IMAGE: satinderkaura348/petapp:${{ github.sha }}
 
     steps:
+      
       # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
       
-      # Step 2: Build Docker Image
+      # Step 2: Dockerfile copies target/*.jar
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: jar
+          path: ./target
+      
+      # Step 3: Build Docker Image
       - name: Build Docker Image
         run: |
           docker build -t ${{ env.DOCKER_IMAGE }} .
           docker save ${{ env.DOCKER_IMAGE }} > docker_image.tar
 
-      # Step 3: Log in to DockerHub
+      # Step 4: Log in to DockerHub
       - name: Log in to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      # Step 4: Push Docker Image
+      # Step 5: Push Docker Image
       - name: Push Docker Image
         run: docker push ${{ env.DOCKER_IMAGE }}
