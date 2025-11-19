@@ -42,7 +42,7 @@ jobs:
         with:
            version: latest
         env:
-           JF_URL: https://trial9t1plt.jfrog.io/artifactory/ 
+           JF_URL: https://trial9t1plt.jfrog.io
            JF_ACCESS_TOKEN: ${{ secrets.JFROG_TOKEN }}
       - name: Upload JAR to JFrog
         run: jf rt u "target/*.jar" "petjfrog-repo-libs-snapshot-local/" --flat=false --build-name="CI-Pipeline" --build-number=${{ github.run_number }}
