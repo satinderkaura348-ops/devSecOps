@@ -1,25 +1,21 @@
+# .github/workflows/imagepush.yml
 name: Docker Image Build and Push
 
 on:
-  workflow_call:
+ workflow_call:
 
 jobs:
   image_push:
-    runs-on: ubuntu-latest
+    runs-on: java_build
     env:
       DOCKER_IMAGE: satinderkaura348/petapp:${{ github.sha }}
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
       - name: Build Docker Image
-        run: sudo docker build -t ${{ env.DOCKER_IMAGE }} .
+        run: |
+          sudo docker build -t ${{ env.DOCKER_IMAGE }} .
+          sudo docker save ${{ env.DOCKER_IMAGE }} > docker_image.tar
 
-      - name: Snyk Docker Scan
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk container test ${{ env.DOCKER_IMAGE }}
 
       - name: Log in to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin

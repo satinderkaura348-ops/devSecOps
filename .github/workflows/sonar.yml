@@ -1,24 +1,13 @@
+# .github/workflows/sonar.yml
 name: Sonar Scan
 
 on:
-  workflow_call:
+ workflow_call:
 
 jobs:
   sonar:
-    runs-on: ubuntu-latest
+    runs-on: java_build
+    #needs: build  # Ensures Sonar runs after build succeeds
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: 17
-          distribution: temurin
-
-      - name: Run Sonar Scan
-        run: |
-          ./gradlew sonarqube \
-            -Dsonar.projectKey=satinderkaura348-ops_devSecops_Pipeline \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      - name: SonarCloud Scan
+        run: mvn sonar:sonar -Dsonar.projectKey=ankit20000_DevSecops_Pipeline -Dsonar.organization=ankit20000 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=3efd906389f89ff2f42493c5bda21481a0a75a68

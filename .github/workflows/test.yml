@@ -1,24 +1,19 @@
+# .github/workflows/test.yml
 name: Test
 
 on:
-  workflow_call:
+ workflow_call:
 
 jobs:
-  trigger-test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Pipeline triggered successfully!"
   test:
-    runs-on: ubuntu-latest
+    runs-on: java_build
+    #needs: build  # Ensures test only runs after build succeeds
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: 17
-          distribution: temurin
-
       - name: Run Unit Tests
-        run: ./gradlew test
+        run: mvn test
+
+      # - name: Upload Test Results h
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: test-results
+      #     path: target/test-classes/TEST-*.xml
