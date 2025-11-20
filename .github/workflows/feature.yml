@@ -4,7 +4,7 @@ on:
   push:
      branches:
        - dev 
-       - main
+       
       
 env:
         DOCKER_IMAGE: satinderkaura348/petapp:${{ github.sha }}
