@@ -1,0 +1,47 @@
+name: Deploy to AKS
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      DOCKER_IMAGE: satinderkaura348/petapp:${{ github.sha }}
+      RESOURCE_GROUP: ${{ secrets.AKS_RESOURCE_GROUP }}
+      CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}
+      K8S_NAMESPACE: default
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Login to Azure
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Get AKS credentials
+      - name: Get AKS Credentials
+        run: |
+          az aks get-credentials \
+            --resource-group $RESOURCE_GROUP \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+
+      # Replace image SHA inside the deployment.yaml
+      - name: Set deployment image
+        run: |
+          sed -i "s|IMAGE_PLACEHOLDER|${DOCKER_IMAGE}|g" k8s/deployment.yaml
+
+      # Apply all Kubernetes manifests
+      - name: Apply Kubernetes manifests
+        run: |
+          kubectl apply -f k8s/
+
+      # Optionally restart pods
+      - name: Restart deployment to pick the new image
+        run: |
+          kubectl rollout restart deployment petclinic -n $K8S_NAMESPACE

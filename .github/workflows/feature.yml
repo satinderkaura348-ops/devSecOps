@@ -28,3 +28,9 @@ jobs:
     uses: ./.github/workflows/imagepush.yml
     needs: test
     secrets: inherit  
+
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    needs: imagepush
+    secrets: inherit
+
