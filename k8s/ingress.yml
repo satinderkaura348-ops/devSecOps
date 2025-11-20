@@ -17,7 +17,18 @@ spec:
             name: petclinic-service
             port:
               number: 80
+  - host: www.devlearn.space
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: petclinic-service
+            port:
+              number: 80
   tls:
   - hosts:
     - devlearn.space
+    - www.devlearn.space
     secretName: petclinic-tls
