@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
       - name: petclinic
-        image: <your-acr-name>.azurecr.io/petclinic:latest
+        image: IMAGE_PLACEHOLDER
         ports:
         - containerPort: 8080
         env:
         - name: SPRING_PROFILES_ACTIVE
-          value: "prod"
+          value: "dev"

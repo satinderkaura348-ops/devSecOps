@@ -31,10 +31,10 @@ jobs:
             --name $CLUSTER_NAME \
             --overwrite-existing
 
-      # Replace image SHA inside the deployment.yaml
+      # Replace image SHA inside the deployment.yml
       - name: Set deployment image
         run: |
-          sed -i "s|IMAGE_PLACEHOLDER|${DOCKER_IMAGE}|g" k8s/deployment.yaml
+          sed -i "s|IMAGE_PLACEHOLDER|${DOCKER_IMAGE}|g" k8s/deployment.yml
 
       # Apply all Kubernetes manifests
       - name: Apply Kubernetes manifests
