@@ -2,11 +2,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: petclinic-ingress
+  namespace: default
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   rules:
-  - http:
+  - host: devlearn.space
+    http:
       paths:
       - path: /
         pathType: Prefix
@@ -15,3 +18,7 @@ spec:
             name: petclinic-service
             port:
               number: 80
+  tls:
+  - hosts:
+    - devlearn.space
+    secretName: petclinic-tls
