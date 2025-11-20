@@ -17,6 +17,7 @@ spec:
       containers:
       - name: petclinic
         image: satinderkaura348/petapp:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
