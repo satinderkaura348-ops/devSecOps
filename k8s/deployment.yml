@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: petclinic
-        image: IMAGE_PLACEHOLDER
+        image: satinderkaura348/petapp:latest
         ports:
         - containerPort: 8080
         env:
