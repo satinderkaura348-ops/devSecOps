@@ -34,6 +34,8 @@ This repository contains the **Spring Petclinic** application deployed on **Azur
 
 ```text
 GitHub → CI/CD → JFrog/Docker Hub → AKS → Petclinic Pods → NGINX Ingress → HTTPS (Let's Encrypt)
+```
+
 Code is pushed to GitHub.
 
 GitHub Actions build the JAR via Maven and push it to JFrog Artifactory.
