@@ -56,13 +56,9 @@ az ad sp create-for-rbac \
 This will output a JSON block containing:
 ```
 clientId
-
 clientSecret
-
 subscriptionId
-
 tenantId
-
 Azure endpoints
 ```
 Copy the entire JSON output and save it in GitHub Secrets as:
