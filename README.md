@@ -2,7 +2,7 @@
 
 **🚀 Deploying to Azure Kubernetes Service (AKS)**
 
-This guide explains how to set up Azure resources and GitHub Actions so your application can be automatically deployed to AKS using Helm.
+This guide explains how to set up Azure resources and GitHub Actions so your application can be automatically deployed to AKS .
 
 1️⃣ Create a Resource Group
 
@@ -54,7 +54,7 @@ az ad sp create-for-rbac \
 ```
 
 This will output a JSON block containing:
-
+```
 clientId
 
 clientSecret
@@ -64,7 +64,7 @@ subscriptionId
 tenantId
 
 Azure endpoints
-
+```
 Copy the entire JSON output and save it in GitHub Secrets as:
 
 ```
