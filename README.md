@@ -1,10 +1,11 @@
-
+<img width="1190" height="640" alt="devsecops" src="https://github.com/user-attachments/assets/89f16089-a65d-47f0-8afa-53760b33891d" />
 
 **🚀 Deploying to Azure Kubernetes Service (AKS)**
 
 This guide explains how to set up Azure resources and GitHub Actions so your application can be automatically deployed to AKS .
 
 1️⃣ Create a Resource Group
+
 
 The resource group will contain your AKS cluster and related resources.
 
